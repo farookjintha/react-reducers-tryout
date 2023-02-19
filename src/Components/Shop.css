@@ -1,0 +1,13 @@
+.products-container{
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product{
+    flex-basis: 25%;
+    border: 1px solid grey;
+    padding: 1em;
+    border-radius: 5px;
+}
