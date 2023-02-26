@@ -1,32 +1,34 @@
-const cartReducer = (state, action) => {
-    // action.type
-    // action.data
+const cart = [];
+
+const cartReducer = (state = cart, action) => {
     switch(action.type){
         case 'ADD_TO_CART': {
-            const existingItem = state.cart.find(product => product.id === action.data.id);
+            const existingItem = state.find(product => product.id === action.data.id);
             let updateItem;
-            let updateCart = state.cart;
+            let updateCart = state;
             if(existingItem){
+                console.log('Existing Item:')
                 updateItem = {...existingItem, quantity: existingItem.quantity + 1};
-                let indexOfProduct = state.cart.findIndex(product => product.id === action.data.id);
+                let indexOfProduct = state.findIndex(product => product.id === action.data.id);
                 updateCart[indexOfProduct] = updateItem;
+                console.log('Updated Item : ', updateItem);
 
             }else{
                 updateItem = {...action.data, quantity: 1};
                 updateCart = [...updateCart, {...updateItem}]
             }
-            return {cart: updateCart}
+            return updateCart;
         }
 
         case 'REMOVE_FROM_CART':
-            return {cart: state.cart.filter(product => product.id !== action.data.id)}
+            return state.filter(product => product.id !== action.data.id)
 
         case 'EMPTY_CART':
-            return {cart: []};
+            return [];
+
         default:
             return state;
     }
-
 }
 
 export default cartReducer;
